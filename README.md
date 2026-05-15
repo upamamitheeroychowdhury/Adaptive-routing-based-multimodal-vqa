@@ -1,100 +1,101 @@
+
 Adaptive Routing-based Multimodal Video Question Answering for Zero-shot Cross-Dataset Generalization
 
-Official implementation of our lightweight multimodal Video Question Answering (VQA) framework for zero-shot cross-dataset generalization across TVQA, STAR, and NExT-QA.
+Official implementation of a lightweight adaptive-routing multimodal VQA framework for zero-shot cross-dataset transfer across TVQA, STAR, and NExT-QA.
 
-GitHub Repository:
+Repository:
 Adaptive-routing-based-multimodal-vqa
 
 Overview
 
-This project proposes a lightweight adaptive-routing multimodal VQA architecture designed to improve zero-shot transfer across different video QA datasets.
+This project proposes a lightweight multimodal Video Question Answering (VQA) framework that improves zero-shot cross-dataset generalization using:
 
-Unlike large Vision-Language Models (VLMs), the proposed framework uses:
-
-BERT-based textual reasoning
-SigLIP visual embeddings
-VCPT/object-level semantic representations
 Adaptive routed multimodal fusion
-Entropy-regularized modality balancing
 Subtitle dropout regularization
+Entropy-regularized modality balancing
+SigLIP visual representations
+BERT-based textual reasoning
+VCPT/object-level semantic representations
 
 The model is trained on:
 
 TVQA
 STAR
 
-and evaluated in a zero-shot manner on:
+and evaluated directly on:
 
 NExT-QA
 
-without any fine-tuning on the target dataset.
+without target-domain fine-tuning.
 
 Key Contributions
 Adaptive Routed Fusion
 
-The framework dynamically balances contributions from:
+A learnable routing module dynamically balances:
 
-subtitles
-video features
+subtitle features
+visual features
 object-level VCPT features
 
-through a learnable routing mechanism.
+during multimodal fusion.
 
-Zero-shot Cross-Dataset Generalization
+Zero-shot Cross-Dataset Transfer
 
-The model is trained on TVQA + STAR and directly evaluated on NExT-QA without target-domain adaptation.
+The framework is trained on TVQA + STAR and evaluated directly on NExT-QA without adaptation.
 
 Subtitle Bias Reduction
 
-Strong subtitle dropout regularization is introduced to reduce over-reliance on textual shortcuts and improve visual grounding.
+Strong subtitle dropout regularization reduces over-reliance on textual shortcuts and improves visual grounding.
 
-Lightweight Multimodal Architecture
+Lightweight Multimodal Framework
 
-Compared to large VLM-based systems, the proposed framework remains computationally lightweight while still improving cross-dataset transfer performance.
+Unlike large Vision-Language Models (VLMs), the proposed framework remains computationally efficient while still improving cross-dataset transfer performance.
 
 Architecture
-
-The overall pipeline is:
-
+Overall Pipeline
 Video Frames
-     ↓
+    │
+    ▼
 SigLIP Encoder
-     ↓
+    │
+    ▼
 Temporal Video Features
-     ↓
-------------------------------------
+
 
 Subtitles
-     ↓
+    │
+    ▼
 BERT Encoder
-     ↓
+    │
+    ▼
 Subtitle Features
-     ↓
-------------------------------------
+
 
 VCPT / Object Labels
-     ↓
+    │
+    ▼
 BERT Encoder
-     ↓
+    │
+    ▼
 Object Features
-     ↓
-------------------------------------
+
 
 Question + Candidate Answers
-     ↓
+    │
+    ▼
 BERT Encoder
-     ↓
+    │
+    ▼
 Question-Answer Representation
-     ↓
+
 
 Adaptive Routing Fusion
 (Modality-aware weighted fusion)
-
-     ↓
-
+    │
+    ▼
 Answer Prediction Head
-     ↓
-
+    │
+    ▼
 Multiple-choice Answer Selection
 Datasets
 TVQA
@@ -104,7 +105,7 @@ TVQA Dataset
 
 Used for:
 
-supervised multimodal VQA training
+multimodal VQA training
 STAR
 
 Source:
@@ -113,7 +114,7 @@ STAR Dataset
 Used for:
 
 additional multimodal training
-improving reasoning diversity
+reasoning diversity
 NExT-QA
 
 Source:
@@ -135,7 +136,7 @@ question-answer candidate pairs
 Encoded using:
 
 bert-base-uncased
-Training Variants
+Experimental Results
 Model Variant	Train Accuracy	Validation Accuracy	Zero-shot NExT-QA
 Baseline Routed Fusion	45.23%	44.73%	23.77%
 ModDrop + Router Entropy	50.89%	44.73%	24.04%
@@ -143,10 +144,9 @@ Strong Subtitle Dropout	50.20%	43.79%	24.10%
 Regularized Run2	47.20%	43.04%	23.88%
 Main Findings
 Subtitle-heavy models show weaker cross-dataset transfer.
-Modality balancing improves generalization.
-Strong subtitle regularization improves zero-shot transfer performance.
-Adaptive routing reduces modality dominance.
-Lightweight multimodal fusion can remain competitive without large-scale VLMs.
+Adaptive modality balancing improves zero-shot generalization.
+Strong subtitle regularization improves transfer performance.
+Lightweight multimodal fusion remains competitive without large VLMs.
 Project Structure
 URC_PROJECT/
 │
@@ -170,23 +170,21 @@ URC_PROJECT/
 │   └── test_nextqa_routed.py
 │
 ├── preprocess/
-│
 ├── results/
-│
 └── checkpoints/
 Training
 
-Example training command:
+Example:
 
 python train/train_tvqa_star_zeroshot_strongdrop.py
 Testing
 
-Example zero-shot evaluation:
+Example:
 
 python test/test_nextqa_routed.py
-Output Files
+Evaluation Outputs
 
-Testing automatically saves:
+The testing pipeline automatically saves:
 
 nextqa_predictions.json
 nextqa_predictions.csv
@@ -196,25 +194,22 @@ classification_report.json
 
 inside the corresponding results directory.
 
-Parameter Count
+Model Size
 
-Approximate total parameters:
+Approximate parameter count:
 
 134.9M parameters
 Future Work
 
-Possible future extensions include:
+Possible future extensions:
 
 temporal grounding supervision
 reasoning alignment loss
 timestamp-aware fusion
-VLM integration
-domain-invariant contrastive learning
+domain-invariant multimodal alignment
 adaptive temporal routing
+lightweight VLM integration
 Citation
-
-If you use this repository, please cite:
-
 @misc{adaptive_routed_vqa_2026,
   title={Adaptive Routing-based Multimodal Video Question Answering for Zero-shot Cross-Dataset Generalization},
   author={Upama Roy Chowdhury},
@@ -223,7 +218,6 @@ If you use this repository, please cite:
 Contact
 
 Upama Roy Chowdhury
-Mechanical Engineering Lecturer & AI Researcher
 
 GitHub:
 GitHub Profile
