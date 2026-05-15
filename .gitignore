@@ -1,0 +1,15 @@
+data/
+checkpoints/
+results/
+logs/
+*.pt
+*.pth
+*.pkl
+*.ckpt
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.env
+venv/
+.venv/
